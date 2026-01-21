@@ -33,3 +33,16 @@ mprint(A*B)
 
 #Scalar Multiplication
 mprint(4*A)
+
+#Multiplication
+
+x = torch.tensor([
+    [2,7],
+    [3,4]
+    ])
+y = torch.tensor([
+    [1,2],
+    [5,3]
+    ])
+
+mprint(x@y)
