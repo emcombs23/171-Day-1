@@ -2,13 +2,13 @@ import torch
 x = torch.tensor([
     [1.0],
     [5.0],
-    [8.0]
+    [9.0]
 ])
 
 y = torch.tensor([
-    [3.0],
-    [6.0],
-    [1.0]
+    [5.0],
+    [8.0],
+    [2.0]
 ])
 
 w = torch.tensor([
@@ -19,7 +19,7 @@ b = torch.tensor([
     [0.0]
 ], requires_grad = True)
 
-lr = .02
+lr = .01
 count = 0
 while True:
     oldW = w.item()
@@ -51,3 +51,5 @@ while True:
         break
     count += 1
     print()
+
+print('7', w.item()*7+b.item())
