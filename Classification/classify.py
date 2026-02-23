@@ -22,7 +22,7 @@ tMean = target.mean(axis = 0,keepdim = True)
 tSTD = target.std(axis = 0,keepdim = True)
 
 X = (feature-fMean)/fSTD
-Y = (target-tMean)/tSTD
+Y = target
 
 model = nn.Linear(1,1)
 criterion = nn.BCEWithLogitsLoss()
