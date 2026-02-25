@@ -34,6 +34,6 @@ def classifyTumor(size,fMean,fSTD,parameters):
 
 with gr.Blocks() as iface:
     sizeInput = gr.Number(label = "Tumor Size:")
-    output = gr.Text(label = "Classificationo:")
+    output = gr.Textbox(label = "Classification:")
     sizeInput.change(fn = classifyTumor, inputs = [sizeInput], outputs = [output])
 iface.launch()
