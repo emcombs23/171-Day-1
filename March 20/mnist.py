@@ -12,6 +12,15 @@ data = datasets.MNIST(
     transform = transforms.ToTensor()
 )
 
+testData = datasets.MNIST(
+    root = './data',
+    train = False,
+    download = True,
+    transform = transforms.ToTensor()
+)
+
+
+
 torch.manual_seed(1)
 
 #image, label = data[0]
@@ -22,6 +31,13 @@ loader = DataLoader(
     batch_size = 64,
     shuffle = True
 )
+
+testLoader = DataLoader(
+    testData,
+    batch_size = 1000,
+    shuffle = False
+)
+
 
 '''
 for i, (images, labels) in enumerate(loader):
@@ -44,12 +60,21 @@ optimizer = optim.Adam(model.parameters(), lr = .001)
 epochs = 10
 print('Hello')
 for epoch in range(epochs):
-    for i,(image, label) in enumerate(loader):
+    total_loss = 0
+    correct = 0
+    images = 0
+    for image,label in loader:
+        optimizer.zero_grad()
         X = image
         Y = label
         yHat = model(X)
         loss = criterion(yHat,Y)
         loss.backward()
         optimizer.step()
-        optimizer.zero_grad()
-    print(loss)
+        total_loss += loss.item()
+        images += label.size(0)
+        correct += sum(yHat.argmax(1) == label).item()
+    print(correct, images)
+    print(total_loss/len(loader))
+
+
