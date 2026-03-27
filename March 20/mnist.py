@@ -74,7 +74,18 @@ for epoch in range(epochs):
         total_loss += loss.item()
         images += label.size(0)
         correct += sum(yHat.argmax(1) == label).item()
-    print(correct, images)
+    print(correct,images, correct/images)
     print(total_loss/len(loader))
 
+    testCorrect = 0
+    testTotal = 0
+    with torch.no_grad():
+        for images, labels in testLoader:
+            output = model(images)
+            testCorrect += (output.argmax(1) == labels).sum().item()
+            testTotal += labels.size(0)
+    print(testCorrect, testTotal, testCorrect/testTotal)
+    print("------------------")
+    
+torch.save(model.state_dict(),'model.pth')
 
