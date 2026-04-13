@@ -5,14 +5,14 @@ from torch.utils.data import DataLoader
 from grid import save_image_grid
 import torch
 
-data = datasets.MNIST(
+data = datasets.CIFAR10(
     root = './data',
     train = True,
     download = True,
     transform = transforms.ToTensor()
 )
 
-testData = datasets.MNIST(
+testData = datasets.CIFAR10(
     root = './data',
     train = False,
     download = True,
@@ -47,8 +47,14 @@ for i, (images, labels) in enumerate(loader):
 '''
 
 model = nn.Sequential(
+    nn.Conv2d(3,32,kernel_size = 3, padding = 1),
+    nn.ReLU(),
+    nn.MaxPool2d(2),
+    nn.Conv2d(32,64,kernel_size = 3, padding = 1),
+    nn.ReLU(),
+    nn.MaxPool2d(2),
     nn.Flatten(),
-    nn.Linear(784, 128),
+    nn.Linear(64*8*8, 128),
     nn.ReLU(),
     nn.Linear(128, 64),
     nn.ReLU(),
@@ -87,5 +93,5 @@ for epoch in range(epochs):
     print(testCorrect, testTotal, testCorrect/testTotal)
     print("------------------")
     
-torch.save(model.state_dict(),'model.pth')
+torch.save(model.state_dict(),'cifarModel2.pth')
 
